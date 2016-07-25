@@ -5,6 +5,13 @@ function lat_lon($sighting) {
   return '{lat: '.$sighting['latitude'].', lng: '.$sighting['longitude'].'}';
 }
 
+function to_eastern_time($time) {
+  $datetime = new DateTime($time);
+  $est_time = new DateTimeZone('America/New_York');
+  $datetime->setTimezone($est_time);
+  return $datetime->format('Y-m-d H:i:s');
+}
+
 $pid = $_GET['id'];
 $stmt = $db->prepare('SELECT * FROM pokemon where pokemon_id=:id');
 $stmt->bindValue(':id', $pid, SQLITE3_INTEGER);
@@ -45,7 +52,7 @@ while ($row = $result->fetchArray()) {
             position: <?php echo lat_lon($sighting); ?>, map: map, title: 'Sighting <?php echo $n; ?>'
           });
           marker<?php echo $n; ?>.addListener('click', function() {
-            (new google.maps.InfoWindow({content: "Despawned: <?php echo $sighting['disappear_time']; ?>"})).open(map, marker<?php echo $n; ?>);
+            (new google.maps.InfoWindow({content: "Despawned: <?php echo to_eastern_time($sighting['disappear_time']); ?>"})).open(map, marker<?php echo $n; ?>);
           });
         <?php } ?>
       }
@@ -55,14 +62,14 @@ while ($row = $result->fetchArray()) {
     Sightings:<br />
     <table>
       <tr>
-        <th>Despawn Time</th>
+        <th>Despawn Time (Eastern Time)</th>
       </tr>
       <?php
       $n = 0;
       foreach ($sightings as $sighting) {
         $n++;
       ?>
-        <tr><td onclick="google.maps.event.trigger(marker<?php echo $n; ?>, 'click')"><?php echo $sighting['disappear_time']; ?></td></tr>
+        <tr><td onclick="google.maps.event.trigger(marker<?php echo $n; ?>, 'click')"><?php echo to_eastern_time($sighting['disappear_time']); ?></td></tr>
       <?php } ?>
     </table>
   </body>

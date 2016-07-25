@@ -1,6 +1,6 @@
 <?php
 $pgomap_root = '/srv/PokemonGo-Map';
-date_default_timezone_set('America/New_York');
+date_default_timezone_set('UTC');
 
 $p = json_decode(file_get_contents($pgomap_root.'/static/locales/pokemon.en.json'), true);
 

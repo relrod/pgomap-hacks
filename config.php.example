@@ -1,0 +1,2 @@
+<?php
+$pgomap_root = '/srv/mainmap';

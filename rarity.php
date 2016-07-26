@@ -13,6 +13,8 @@ $count = $db->querySingle('SELECT count(*) from pokemon;');
     </style>
   </head>
   <body>
+    Seen: <?php echo $count; ?> / 151 (<?php echo ($count / 151) * 100; ?>%)
+    <br />
     <table>
       <tr>
         <th>Name (#)</th>

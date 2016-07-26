@@ -2,6 +2,7 @@
 require 'common.php';
 $grouped = $db->query('SELECT pokemon_id, count(pokemon_id) FROM pokemon GROUP BY pokemon_id ORDER BY count(pokemon_id) DESC;');
 $count = $db->querySingle('SELECT count(*) from pokemon;');
+$dist_count = $db->querySingle('SELECT count(distinct pokemon_id) from pokemon;');
 ?>
 <!doctype html>
 <html>
@@ -13,8 +14,8 @@ $count = $db->querySingle('SELECT count(*) from pokemon;');
     </style>
   </head>
   <body>
-    Seen: <?php echo $count; ?> / 151 (<?php echo ($count / 151) * 100; ?>%)
-    <br />
+    Total distinct seen: <?php echo $dist_count; ?> / 151 (<?php echo round(($dist_count / 151) * 100, 3); ?>%)
+    <hr />
     <table>
       <tr>
         <th>Name (#)</th>

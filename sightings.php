@@ -49,7 +49,7 @@ while ($row = $result->fetchArray()) {
           $n++;
         ?>
           marker<?php echo $n; ?> = new google.maps.Marker({
-            position: <?php echo lat_lon($sighting); ?>, map: map, title: 'Sighting <?php echo $n; ?>'
+            position: <?php echo lat_lon($sighting); ?>, map: map, title: 'Sighting <?php echo $n; ?>', icon: '/static/icons/<?php echo $pid; ?>.png'
           });
           marker<?php echo $n; ?>.addListener('click', function() {
             (new google.maps.InfoWindow({content: "Despawned: <?php echo to_eastern_time($sighting['disappear_time']); ?>"})).open(map, marker<?php echo $n; ?>);

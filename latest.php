@@ -14,6 +14,8 @@ $rows = array();
     </style>
   </head>
   <body>
+    <h2>Latest NEW Pokemon</h2>
+    <hr />
     <table>
       <tr>
         <th>Name (#)</th>

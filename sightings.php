@@ -1,17 +1,6 @@
 <?php
 require 'common.php';
 
-function lat_lon($sighting) {
-  return '{lat: '.$sighting['latitude'].', lng: '.$sighting['longitude'].'}';
-}
-
-function to_eastern_time($time) {
-  $datetime = new DateTime($time);
-  $est_time = new DateTimeZone('America/New_York');
-  $datetime->setTimezone($est_time);
-  return $datetime->format('Y-m-d H:i:s');
-}
-
 $pid = $_GET['id'];
 $stmt = $db->prepare('SELECT * FROM pokemon where pokemon_id=:id');
 $stmt->bindValue(':id', $pid, SQLITE3_INTEGER);
